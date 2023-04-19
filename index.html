@@ -6,9 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors</title>
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
   </head>
   <body>
-    <h1>Rock Paper Scissors</h1>
-    <script src="./script.js"></script>
+    <container>
+      <header><h1>Rock Paper Scissors</h1></header>
+      <main>
+        <div>
+          <div>&#9994;</div>
+          <button class="btn gameBtn" id="rock">Rock</button>
+        </div>
+        <div>
+          <div>&#9995;</div>
+          <button class="btn gameBtn" id="paper">Paper</button>
+        </div>
+        <div>
+          <div>&#129310;</div>
+          <button class="btn gameBtn" id="scissors">Scissors</button>
+        </div>
+      </main>
+      <section class="settings">
+        <button class="btn" id="start-button">Start Game</button>
+        <button class="btn" id="reset-button">Reset Game</button>
+        <div id="display"></div>
+      </section>
+    </container>
   </body>
 </html>
