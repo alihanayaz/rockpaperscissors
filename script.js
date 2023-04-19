@@ -1,35 +1,42 @@
 // set game variables
 let playerScore = 0;
 let computerScore = 0;
+let gameover = false;
 
 const buttons = document.querySelectorAll('.gameBtn');
 const display = document.querySelector('#display');
 const startButton = document.querySelector('#start-button');
 const resetButton = document.querySelector('#reset-button');
+resetButton.style.display = 'none';
+buttons.forEach((button) => (button.disabled = true));
 
 // get computer choice
 function getComputerChoice() {
-  const choices = ['rock', 'paper', 'scissors'];
+  const choices = ['Rock', 'Paper', 'Scissors'];
   const randomIndex = Math.floor(Math.random() * choices.length);
   return choices[randomIndex];
 }
 
 // play a round
 function playRound(playerSelection, computerSelection) {
-  const winText = 'You win!';
-  playerSelection = playerSelection.toLowerCase();
   if (playerSelection === computerSelection) {
     return 'Tie!';
   } else if (
-    (playerSelection === 'rock' && computerSelection === 'scissors') ||
-    (playerSelection === 'paper' && computerSelection === 'rock') ||
-    (playerSelection === 'scissors' && computerSelection === 'paper')
+    (playerSelection === 'Rock' && computerSelection === 'Scissors') ||
+    (playerSelection === 'Paper' && computerSelection === 'Rock') ||
+    (playerSelection === 'Scissors' && computerSelection === 'Paper')
   ) {
     playerScore++;
-    return winText;
+    if (playerScore === 5) {
+      gameover = true;
+    }
+    return `You win! ${playerSelection} beats ${computerSelection}.`;
   } else {
     computerScore++;
-    return 'You lose!';
+    if (computerScore === 5) {
+      gameover = true;
+    }
+    return `You lose! ${computerSelection} beats ${playerSelection}.`;
   }
 }
 
@@ -47,18 +54,33 @@ function resetGame() {
   playerScore = 0;
   computerScore = 0;
   updateScore();
+  gameover = false;
+  buttons.forEach((button) => {
+    button.disabled = false;
+  });
 }
 
 // start game
 function startGame() {
+  startButton.style.display = 'none';
+  resetButton.style.display = 'block';
   buttons.forEach((button) => {
+    if (gameover) {
+      return;
+    }
+    button.disabled = false;
     button.addEventListener('click', () => {
-      let result = playRound(button.textContent, getComputerChoice());
+      const playerChoice = button.textContent;
+      const computerChoice = getComputerChoice();
+      let result = playRound(playerChoice, computerChoice);
       updateScore(result);
       if (playerScore === 5 || computerScore === 5) {
         let winner = playerScore > computerScore ? 'Player' : 'Computer';
         display.textContent = `${winner} wins the game!`;
-        resetGame();
+        buttons.forEach((button) => {
+          button.disabled = true;
+        });
+        gameover = true;
       }
     });
   });

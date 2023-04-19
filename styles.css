@@ -1,5 +1,5 @@
 :root {
-  --black: #fefefd;
+  --white: #fefefd;
   --yellow: #fed835;
   --dark-grey: #39393b;
   --light-grey: #989898;
@@ -11,16 +11,20 @@
   font-family: 'Roboto', sans-serif;
 }
 body {
-  color: #fff;
+  color: var(--white);
   background-color: rgb(31, 31, 31);
 }
 
-container {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+header {
+  padding-bottom: 50px;
 }
 
 main {
@@ -32,6 +36,10 @@ main {
 }
 
 main > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-right: 12px;
 }
 
@@ -41,17 +49,27 @@ main > div {
   color: var(--dark-grey);
   font-weight: 700;
   border-radius: 12px;
-  margin: 12px 0;
   font-size: 16px;
   padding: 14px 40px;
   cursor: pointer;
   width: 250px;
 }
 .btn:hover {
-  color: #fff;
+  color: var(--white);
   transition: 0.2s;
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn-secondary {
+  background-color: var(--orange);
+}
+
+button:disabled,
+button[disabled] {
+  background-color: var(--dark-grey);
+  color: var(--white);
+  pointer-events: none;
 }
 
 .settings {
@@ -59,4 +77,8 @@ main > div {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+#display {
+  margin-top: 12px;
 }
